@@ -15,7 +15,7 @@ Available addons
 addon | version | summary
 --- | --- | ---
 [l10n_check_mobile_extension](l10n_check_mobile_extension/) | 10.0.1.0.0 | Control mobile phone of partner
-
+[account_invoice_number](account_invoice_number/) | 10.0.1.0.0 | Account Invoice Number
 
 Unported addons
 ---------------
