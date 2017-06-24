@@ -9,19 +9,6 @@ Odoo modules related to Vietnam.
 
 
 [//]: # (addons)
-
-Available addons
-----------------
-addon | version | summary
---- | --- | ---
-[l10n_check_mobile_extension](l10n_check_mobile_extension/) | 10.0.1.0.0 | Control mobile phone of partner
-[l10n_vn_account_invoice_number](l10n_vn_account_invoice_number/) | 10.0.1.0.0 | Account Invoice Number
-
-Unported addons
----------------
-addon | version | summary
---- | --- | ---
-
 [//]: # (end addons)
 
 Translation Status
