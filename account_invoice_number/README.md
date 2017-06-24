@@ -1,2 +1,0 @@
-Odoo Viet Nam Accounting
-------------------------
