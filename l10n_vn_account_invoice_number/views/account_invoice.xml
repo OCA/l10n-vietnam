@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Invoices -->
-    <record id="view_invoice_supplier_form_inherit" model="ir.ui.view">
+    <record id="invoice_supplier_form" model="ir.ui.view">
         <field name="name">view.invoice.supplier.form.inherit</field>
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_supplier_form"/>
         <field name="arch" type="xml">
             <field name="reference" position="after">
-                <field name="invoice_number"/>
-                <field name="invoice_form"/>
-                <field name="invoice_serie"/>
+                <field name="tax_invoice_number"/>
+                <field name="tax_invoice_form"/>
+                <field name="tax_invoice_serie"/>
             </field>
         </field>
     </record>
 
-    <record id="view_invoice_form_inherit" model="ir.ui.view">
+    <record id="invoice_form" model="ir.ui.view">
         <field name="name">view.invoice.form.inherit</field>
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
             <field name="payment_term_id" position="after">
-                <field name="invoice_number"/>
-                <field name="invoice_form"/>
-                <field name="invoice_serie"/>
+                <field name="tax_invoice_number"/>
+                <field name="tax_invoice_form"/>
+                <field name="tax_invoice_serie"/>
             </field>
         </field>
     </record>

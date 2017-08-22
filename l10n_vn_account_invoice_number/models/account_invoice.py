@@ -9,9 +9,9 @@ from odoo.exceptions import UserError
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    invoice_number = fields.Integer()
-    invoice_form = fields.Char(size=10)
-    invoice_serie = fields.Char(size=10)
+    tax_invoice_number = fields.Integer()
+    tax_invoice_form = fields.Char()
+    tax_invoice_serie = fields.Char()
 
     @api.multi
     def action_invoice_open(self):

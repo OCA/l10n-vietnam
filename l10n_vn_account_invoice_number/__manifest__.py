@@ -13,12 +13,10 @@
     'depends': [
         'account',
         'account_voucher',
-        'sale',
-        'purchase'
     ],
     'data': [
-        'views/account_invoice_view.xml',
-        'views/account_voucher_view.xml',
+        'views/account_invoice.xml',
+        'views/account_voucher.xml',
     ],
     'installable': True,
 }
