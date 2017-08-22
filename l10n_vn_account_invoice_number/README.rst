@@ -19,7 +19,7 @@ Account Invoice Number
 
 - Create 3 fields Invoice Number (integer), Form (char, 10 characters), Serie (char, 10 characters) on:
 
-  - Customer 
+  - Customer Invoice
   - Supplier Invoice
   - Sale Receipt (type is Pay Later)
   - Purchase Receipt (type is Pay Later)
@@ -31,17 +31,12 @@ Account Invoice Number
 Usage
 =====
 
-To use this module, you need to:
-
-#. Go to ...
-
-.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
-   :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/237/10.0
-
-.. repo_id is available in https://github.com/OCA/maintainer-tools/blob/master/tools/repos_with_ids.txt
-.. branch is "8.0" for example
-
+To use this module, you need to create / validate any of these:
+ - Customer Invoice
+ - Supplier Invoice
+ - Sales Receipt
+ - Purchase Receipt
+When validating, a control will ensure that the fields added by this module are being set.
 
 Bug Tracker
 ===========
