@@ -12,29 +12,31 @@ class AccountInvoice(models.Model):
     tax_invoice_number = fields.Integer()
     tax_invoice_form = fields.Char()
     tax_invoice_serie = fields.Char()
-    is_owner_in_vietnam = fields.Boolean(string='Is Owner in Vietnam', store=False, compute='_is_owner_in_vietnam')
+    is_owner_in_vn = fields.Boolean(string='Is Owner in Vietnam',
+                                    store=False,
+                                    compute='_compute_is_owner_in_vn')
 
     @api.onchange('partner_id', 'company_id')
     def _onchange_partner_id(self):
-        self._is_owner_in_vietnam()
+        self._compute_is_owner_in_vn()
         return super(AccountInvoice, self)._onchange_partner_id()
 
-    @api.one
-    def _is_owner_in_vietnam(self):
-        invoice_owner_country_code = ''
+    @api.multi
+    def _compute_is_owner_in_vn(self):
+        owner_country_code = ''
         if self.type == 'out_invoice' or self.type == 'in_refund':
-            invoice_owner_country_code = self.env.user.company_id.partner_id.country_id.code
+            owner_country_code = self.company_id.partner_id.country_id.code
         else:
-            invoice_owner_country_code = self.partner_id.country_id.code
-        if invoice_owner_country_code == 'VN':
-            self.is_owner_in_vietnam = True
+            owner_country_code = self.partner_id.country_id.code
+        if owner_country_code == 'VN':
+            self.is_owner_in_vn = True
         else:
-            self.is_owner_in_vietnam = False
+            self.is_owner_in_vn = False
 
     @api.multi
     def action_invoice_open(self):
         # Check invoice number, form, serie before validating
-        if self.is_owner_in_vietnam:
+        if self.is_owner_in_vn:
             for inv in self:
                 if not inv.tax_invoice_number:
                     raise UserError(

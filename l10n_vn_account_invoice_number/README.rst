@@ -36,6 +36,7 @@ To use this module, you need to create / validate any of these:
  - Supplier Invoice
  - Sales Receipt
  - Purchase Receipt
+
 When validating, a control will ensure that the fields added by this module are being set.
 
 Bug Tracker
