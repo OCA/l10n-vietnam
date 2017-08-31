@@ -12,11 +12,9 @@
     'category': 'Accounting & Finance',
     'depends': [
         'account',
-        'account_voucher',
     ],
     'data': [
         'views/account_invoice.xml',
-        'views/account_voucher.xml',
     ],
     'installable': True,
 }

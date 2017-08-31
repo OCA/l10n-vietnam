@@ -18,8 +18,6 @@ In Odoo, the following types of records need to store those values:
 
 - Customer Invoice
 - Supplier Invoice
-- Sale Receipt (type is Pay Later)
-- Purchase Receipt (type is Pay Later)
 
 In Odoo, we need to store this information whenever the issuer of the accounting document is in Vietnam, so this module adds a control when validating a customer/supplier invoice for a issuer based in Vietnam.
 
@@ -29,8 +27,6 @@ Usage
 To use this module, you need to create / validate any of these:
  - Customer Invoice
  - Supplier Invoice
- - Sales Receipt
- - Purchase Receipt
 
 When validating, a control will ensure that the fields added by this module are being set.
 
