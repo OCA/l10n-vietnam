@@ -6,27 +6,22 @@
 Account Invoice Number
 ======================
 
-## Expected behavior:
+Vietnamese regulations (from tax authorities) requires to display 3 values on the reports of accounting transactions:
 
-# These information should appear on:
+The 3 values to display are:
+
+- Tax Invoice Number
+- Tax Invoice Form
+- Tax Invoice Series: The references of the series of invoice (the reference of the accounting booklet)
+
+In Odoo, the following types of records need to store those values:
 
 - Customer Invoice
 - Supplier Invoice
 - Sale Receipt (type is Pay Later)
 - Purchase Receipt (type is Pay Later)
 
-# Solution:
-
-- Create 3 fields Invoice Number (integer), Form (char, 10 characters), Serie (char, 10 characters) on:
-
-  - Customer Invoice
-  - Supplier Invoice
-  - Sale Receipt (type is Pay Later)
-  - Purchase Receipt (type is Pay Later)
-
-- It is required to have these fields input when:
-
-  - Validating customer/supplier invoice
+In Odoo, we need to store this information whenever the issuer of the accounting document is in Vietnam, so this module adds a control when validating a customer/supplier invoice for a issuer based in Vietnam.
 
 Usage
 =====
@@ -60,6 +55,7 @@ Contributors
 
 * Hai Dinh Duong <haidd@trobz.com>
 * Vu Nguyen Anh <anhvu@trobz.com>
+* Fanha Giang <fanha99@hotmail.com>
 
 Funders
 -------

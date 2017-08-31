@@ -7,10 +7,10 @@
         <field name="inherit_id" ref="account.invoice_supplier_form"/>
         <field name="arch" type="xml">
             <field name="reference" position="after">
-                <field name="is_owner_in_vn" invisible="1"/>
-                <field name="tax_invoice_number" attrs="{'invisible': [('is_owner_in_vn', '=', False)]}"/>
-                <field name="tax_invoice_form" attrs="{'invisible': [('is_owner_in_vn', '=', False)]}"/>
-                <field name="tax_invoice_serie" attrs="{'invisible': [('is_owner_in_vn', '=', False)]}"/>
+                <field name="is_issuer_in_vn" invisible="1"/>
+                <field name="tax_invoice_number" attrs="{'invisible': [('is_issuer_in_vn', '=', False)]}"/>
+                <field name="tax_invoice_form" attrs="{'invisible': [('is_issuer_in_vn', '=', False)]}"/>
+                <field name="tax_invoice_series" attrs="{'invisible': [('is_issuer_in_vn', '=', False)]}"/>
             </field>
         </field>
     </record>
@@ -20,10 +20,10 @@
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
             <field name="payment_term_id" position="after">                
-                <field name="is_owner_in_vn" invisible="1"/>
-                <field name="tax_invoice_number" attrs="{'invisible': [('is_owner_in_vn', '=', False)]}"/>
-                <field name="tax_invoice_form" attrs="{'invisible': [('is_owner_in_vn', '=', False)]}"/>
-                <field name="tax_invoice_serie" attrs="{'invisible': [('is_owner_in_vn', '=', False)]}"/>
+                <field name="is_issuer_in_vn" invisible="1"/>
+                <field name="tax_invoice_number" attrs="{'invisible': [('is_issuer_in_vn', '=', False)]}"/>
+                <field name="tax_invoice_form" attrs="{'invisible': [('is_issuer_in_vn', '=', False)]}"/>
+                <field name="tax_invoice_series" attrs="{'invisible': [('is_issuer_in_vn', '=', False)]}"/>
             </field>
         </field>
     </record>
