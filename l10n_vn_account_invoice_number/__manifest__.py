@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © 2006-2017 Trobz (http://trobz.com)
+# Copyright 2017 Trobz (http://trobz.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
@@ -13,12 +13,10 @@
     'depends': [
         'account',
         'account_voucher',
-        'sale',
-        'purchase'
     ],
     'data': [
-        'views/account_invoice_view.xml',
-        'views/account_voucher_view.xml',
+        'views/account_invoice.xml',
+        'views/account_voucher.xml',
     ],
     'installable': True,
 }
