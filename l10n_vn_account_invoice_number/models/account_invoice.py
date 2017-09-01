@@ -43,5 +43,36 @@ class AccountInvoice(models.Model):
                         _("Missing tax invoice form"))
                 if not inv.tax_invoice_series:
                     raise UserError(
-                        _("Missing tax invoice serie"))
+                        _("Missing tax invoice series"))
+                self._check_unique_issuer_tax_invoice_info()
         return super(AccountInvoice, self).action_invoice_open()
+
+    def _check_unique_issuer_tax_invoice_info(self):
+        same_tax_inv_info = False
+        if self.type in ('out_invoice', 'in_refund'):
+            same_tax_inv_info = self.search([
+                ('type', 'in', ('out_invoice', 'in_refund')),
+                ('state', 'in', ('open', 'paid')),
+                ('tax_invoice_number', '=', str(self.tax_invoice_number)),
+                ('tax_invoice_form', '=ilike', str(self.tax_invoice_form)),
+                ('tax_invoice_series', '=ilike', str(self.tax_invoice_series)),
+                ('id', '!=', self.id), ])
+        else:
+            same_tax_inv_info = self.search([
+                ('partner_id', '=', self.partner_id.id),
+                ('type', 'in', ('in_invoice', 'out_refund')),
+                ('state', 'in', ('open', 'paid')),
+                ('tax_invoice_number', '=', str(self.tax_invoice_number)),
+                ('tax_invoice_form', '=ilike', str(self.tax_invoice_form)),
+                ('tax_invoice_series', '=ilike', str(self.tax_invoice_series)),
+                ('id', '!=', self.id), ])
+        if same_tax_inv_info:
+            raise UserError(
+                (
+                    "The invoice/refund with tax invoice info '%s %s %s' "
+                    "already exists under the number '%s'. "
+                ) % (
+                    same_tax_inv_info[0].tax_invoice_form,
+                    same_tax_inv_info[0].tax_invoice_series,
+                    same_tax_inv_info[0].tax_invoice_number,
+                    same_tax_inv_info[0].number or '-'))
