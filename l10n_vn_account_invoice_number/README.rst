@@ -21,6 +21,10 @@ In Odoo, the following types of records need to store those values:
 
 In Odoo, we need to store this information whenever the issuer of the accounting document is in Vietnam, so this module adds a control when validating a customer/supplier invoice for a issuer based in Vietnam.
 
+Notes:
+- Issuer is the Supplier (or Parent Company of the supplier) for Supplier Invoices
+- Issuer is Company of the Invoice for Customer Invoices
+
 Usage
 =====
 
