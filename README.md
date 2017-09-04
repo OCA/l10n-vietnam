@@ -7,6 +7,7 @@ Vietnamese localization for Odoo
 
 Odoo modules related to Vietnam.
 
+[Roadmap](https://docs.google.com/document/d/1r6j3_BGn4KGk4i1IC9v8-OfL80g-WJNIJ2hylnIbulo/edit#)
 
 [//]: # (addons)
 [//]: # (end addons)
