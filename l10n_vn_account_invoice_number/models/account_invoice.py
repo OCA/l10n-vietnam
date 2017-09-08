@@ -20,20 +20,23 @@ class AccountInvoice(models.Model):
     def _compute_is_issuer_in_vn(self):
         for rec in self:
             if rec.type == 'out_invoice' or rec.type == 'in_refund':
-                issuer_country_id = rec.company_id.partner_id.parent_id.country_id \
-                                    or rec.company_id.partner_id.country_id
+                issuer_country_id = (
+                    rec.company_id.partner_id.parent_id.country_id or
+                    rec.company_id.partner_id.country_id)
             else:
-                issuer_country_id = rec.partner_id.country_id \
-                                    or rec.partner_id.parent_id.country_id
-            issuer_country_code = issuer_country_id \
-                                  and issuer_country_id.code or "VN"
+                issuer_country_id = (
+                    rec.partner_id.country_id or
+                    rec.partner_id.parent_id.country_id)
+            issuer_country_code = (
+                issuer_country_id and
+                issuer_country_id.code or "VN")
             rec.is_issuer_in_vn = issuer_country_code == 'VN'
 
     @api.multi
     def action_invoice_open(self):
         # Check invoice number, form, series before validating
-        if self.is_issuer_in_vn:
-            for inv in self:
+        for inv in self:
+            if inv.is_issuer_in_vn:
                 if not inv.tax_invoice_number:
                     raise UserError(
                         _("Missing tax invoice number"))
@@ -50,21 +53,22 @@ class AccountInvoice(models.Model):
         same_tax_inv_info = False
 
         invoice_duplicate_domain = [
-                ('type', '=', self.type),
-                ('state', 'in', ('open', 'paid')),
-                ('tax_invoice_number', '=', str(self.tax_invoice_number)),
-                ('tax_invoice_form', '=ilike', str(self.tax_invoice_form)),
-                ('tax_invoice_series', '=ilike', str(self.tax_invoice_series)),
-                ('id', '!=', self.id), ]
+            ('type', '=', self.type),
+            ('state', 'in', ('open', 'paid')),
+            ('tax_invoice_number', '=', str(self.tax_invoice_number)),
+            ('tax_invoice_form', '=ilike', str(self.tax_invoice_form)),
+            ('tax_invoice_series', '=ilike', str(self.tax_invoice_series)),
+            ('id', '!=', self.id), ]
 
         if self.type in ('in_invoice', 'out_refund'):
-            invoice_duplicate_domain += [('partner_id', '=', self.partner_id.id)]
+            invoice_duplicate_domain += [
+                ('partner_id', '=', self.partner_id.id)]
 
         same_tax_inv_info = self.search(invoice_duplicate_domain)
 
         if same_tax_inv_info:
             raise UserError(
-                (
+                _(
                     "The invoice/refund with tax invoice info '%s %s %s' "
                     "already exists under the number '%s'. "
                 ) % (
