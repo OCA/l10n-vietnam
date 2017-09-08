@@ -17,21 +17,17 @@ class AccountInvoice(models.Model):
                                      compute='_compute_is_issuer_in_vn')
 
     @api.onchange('partner_id', 'company_id')
-    def _onchange_partner_id(self):
-        self._compute_is_issuer_in_vn()
-        return super(AccountInvoice, self)._onchange_partner_id()
-
-    @api.multi
     def _compute_is_issuer_in_vn(self):
-        if self.type == 'out_invoice' or self.type == 'in_refund':
-            issuer_country_id = self.company_id.partner_id.parent_id.country_id \
-                                or self.company_id.partner_id.country_id
-        else:
-            issuer_country_id = self.partner_id.country_id \
-                                or self.partner_id.parent_id.country_id
-        issuer_country_code = issuer_country_id \
-                              and issuer_country_id.code or "VN"
-        self.is_issuer_in_vn = issuer_country_code == 'VN'
+        for rec in self:
+            if rec.type == 'out_invoice' or rec.type == 'in_refund':
+                issuer_country_id = rec.company_id.partner_id.parent_id.country_id \
+                                    or rec.company_id.partner_id.country_id
+            else:
+                issuer_country_id = rec.partner_id.country_id \
+                                    or rec.partner_id.parent_id.country_id
+            issuer_country_code = issuer_country_id \
+                                  and issuer_country_id.code or "VN"
+            rec.is_issuer_in_vn = issuer_country_code == 'VN'
 
     @api.multi
     def action_invoice_open(self):
@@ -47,7 +43,7 @@ class AccountInvoice(models.Model):
                 if not inv.tax_invoice_series:
                     raise UserError(
                         _("Missing tax invoice series"))
-                self._check_unique_issuer_tax_invoice_info()
+                inv._check_unique_issuer_tax_invoice_info()
         return super(AccountInvoice, self).action_invoice_open()
 
     def _check_unique_issuer_tax_invoice_info(self):
