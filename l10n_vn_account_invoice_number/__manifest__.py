@@ -14,7 +14,8 @@
         'account',
     ],
     'data': [
-        'views/account_invoice.xml',
+        'views/account_invoice_view.xml',
+        'views/res_company_view.xml',
     ],
     'installable': True,
 }
