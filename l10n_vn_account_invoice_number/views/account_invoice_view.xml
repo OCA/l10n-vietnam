@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Invoices -->
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="name">view.invoice.supplier.form.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="reference" position="after">
+                <field name="is_issuer_in_vn" invisible="1"/>
+                <field name="tax_invoice_number" attrs="{'invisible': [('is_issuer_in_vn', '=', False)]}"/>
+                <field name="tax_invoice_form" attrs="{'invisible': [('is_issuer_in_vn', '=', False)]}"/>
+                <field name="tax_invoice_series" attrs="{'invisible': [('is_issuer_in_vn', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">view.invoice.form.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="payment_term_id" position="after">
+                <field name="is_issuer_in_vn" invisible="1"/>
+                <field name="tax_invoice_number" attrs="{'invisible': [('is_issuer_in_vn', '=', False)]}"/>
+                <field name="tax_invoice_form" attrs="{'invisible': [('is_issuer_in_vn', '=', False)]}"/>
+                <field name="tax_invoice_series" attrs="{'invisible': [('is_issuer_in_vn', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

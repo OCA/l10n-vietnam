@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_res_company_form_inherit" model="ir.ui.view">
+        <field name="name">view.res.company.form.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="validate_tax_invoice_number" />
+            </field>
+        </field>
+    </record>
+
+</odoo>
