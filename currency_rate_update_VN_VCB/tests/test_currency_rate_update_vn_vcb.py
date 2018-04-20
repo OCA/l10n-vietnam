@@ -12,15 +12,9 @@ class TestCurrencyRateUpdateVnVcb(common.SavepointCase):
         self.euro = self.env.ref('base.EUR')
         self.vnd = self.env.ref('base.VND')
         self.vnd.write({'active': True})
-        currency_rates = self.env['res.currency.rate'].search(
-            [('currency_id', '=', self.usd.id)])
-        currency_rates.unlink()
-        currency_rates = self.env['res.currency.rate'].search(
-            [('currency_id', '=', self.euro.id)])
-        currency_rates.unlink()
-        currency_rates = self.env['res.currency.rate'].search(
-            [('currency_id', '=', self.vnd.id)])
-        currency_rates.unlink()
+        self.usd.rate_ids.unlink()
+        self.euro.rate_ids.unlink()
+        self.vnd.rate_ids.unlink()
         self.main_currency = self.env.user.company_id.currency_id
         self.update_service = self.env['currency.rate.update.service'].create({
             'service': 'VN_VCB',
@@ -28,7 +22,7 @@ class TestCurrencyRateUpdateVnVcb(common.SavepointCase):
                                     [self.euro.id, self.vnd.id, self.usd.id])]
         })
 
-    def test_currency_rate_update_USD_VND(self):
+    def test_currency_rate_update_base_currency(self):
         curr = self.vnd
         if self.main_currency.name == 'VND':
             curr = self.usd
@@ -37,7 +31,7 @@ class TestCurrencyRateUpdateVnVcb(common.SavepointCase):
             [('currency_id', '=', curr.id)])
         self.assertTrue(currency_rates)
 
-    def test_currency_rate_update_VND_EUR(self):
+    def test_currency_rate_update_USD_EUR(self):
         curr = self.euro
         if self.main_currency.name == 'EUR':
             curr = self.vnd

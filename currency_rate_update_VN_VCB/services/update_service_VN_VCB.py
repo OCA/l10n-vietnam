@@ -21,26 +21,24 @@ class VCBGetter(CurrencyGetterInterface):
         "KWD", "MYR", "NOK", "RUB", "SAR", "SEK", "SGD", "THB", "USD", "VND"]
 
     def rate_retrieve(self, dom, ns, curr):
-        """ Parse a dom node to retrieve-currencies data"""
-        res = {}
+        """Parse a dom node to retrieve-currencies data"""
         xpath_rate_currency = (
             "/ExrateList/Exrate[@CurrencyCode='%s']/@Transfer"
             % curr.upper()
         )
-        res['rate_currency'] = float(
-            dom.xpath(xpath_rate_currency, namespaces=ns)[0])
-        return res
+        return {'rate_currency': float(
+            dom.xpath(xpath_rate_currency, namespaces=ns)[0])}
 
     def get_updated_currency(self, currency_array, main_currency,
                              max_delta_days):
-        """implementation of abstract method of Curreny_getter_interface"""
+        """Implementation of abstract method of Curreny_getter_interface"""
         url = 'http://www.vietcombank.com.vn/ExchangeRates/ExrateXML.aspx'
-        # we do not want to update the main currency
+        # We do not want to update the main currency
         if main_currency in currency_array:
             currency_array.remove(main_currency)
         _logger.debug("VCB currency rate service : connecting...")
-        rawfile = self.get_url(url)
-        dom = etree.fromstring(rawfile)
+        raw_file = self.get_url(url)
+        dom = etree.fromstring(raw_file)
         vcb_ns = {}
         _logger.debug("VCB sent a valid XML file")
         rate_date = dom.xpath('/ExrateList/DateTime/text()',
@@ -68,10 +66,8 @@ class VCBGetter(CurrencyGetterInterface):
                 if main_currency == 'VND':
                     rate = 1 / curr_data['rate_currency']
                 else:
-                    rate = (
-                        main_curr_data['rate_currency'] /
-                        curr_data['rate_currency']
-                    )
+                    rate = (main_curr_data['rate_currency'] /
+                            curr_data['rate_currency'])
             self.updated_currency[curr] = rate
             _logger.debug(
                 "Rate retrieved : 1 %s = %s %s" % (main_currency, rate, curr))

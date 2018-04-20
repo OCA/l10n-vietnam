@@ -12,6 +12,5 @@
         "base",
         "currency_rate_update"
     ],
-    "data": [],
     'installable': True
 }

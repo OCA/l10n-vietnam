@@ -25,17 +25,11 @@ The module depends on currency_rate_update module available on https://github.co
 Usage
 =====
 
-The module supports multi-company currency in two ways:
+This module does not change usage, but only adds an additional source of exchange rates when configuring in:
+Accounting > Configuration > Multi-currencies > Rate Auto-download
 
-* when currencies are shared, you can set currency update only on one
-  company
-* when currencies are separated, you can set currency on every company
-  separately
+Usage is the same as the module `Currency Usage <https://github.com/OCA/currency/tree/11.0/currency_rate_update>`_.
 
-A function field lets you know your currency configuration.
-
-If in multi-company mode, the base currency will be the first company's
-currency found in database.
 
 Bug Tracker
 ===========
