@@ -3,7 +3,7 @@
 {
     'name': 'Currency Rate Update - VCB',
     'summary': 'Currency Rate Update Vietcombank service',
-    'version': '11.0.0.0.0',
+    'version': '11.0.1.0.0',
     "author": "Komit, Odoo Community Association (OCA)",
     "website": "http://komit-consulting.com",
     "license": "AGPL-3",
