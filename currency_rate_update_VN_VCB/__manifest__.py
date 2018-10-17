@@ -10,7 +10,8 @@
     "category": "Financial Management/Configuration",
     "depends": [
         "base",
-        "currency_rate_update"
+        "currency_rate_inverted",
+        "currency_rate_update",
     ],
     'installable': True
 }
