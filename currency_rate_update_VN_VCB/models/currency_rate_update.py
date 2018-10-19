@@ -9,18 +9,20 @@ class CurrencyRateUpdateService(models.Model):
 
     @api.multi
     def write(self, vals):
-        self.fore_inverted_currency(self.service, vals)
-        return super(CurrencyRateUpdateService, self).write(vals)
+        res = super(CurrencyRateUpdateService, self).write(vals)
+        self.force_inverted_currency(self.service, vals)
+        return res
 
     @api.model
     def create(self, vals):
-        self.fore_inverted_currency(vals.get('service'), vals)
+        self.force_inverted_currency(vals.get('service'), vals)
         return super(CurrencyRateUpdateService, self).create(vals)
 
-    def fore_inverted_currency(self, service, vals):
-        if service == 'VN_VCB':
-            for currency_id in vals.get('currency_to_update')[0][2]:
-                currency = self.env['res.currency'].browse(currency_id)
-                if currency.name == 'VND':
-                    continue
-                currency.write({'rate_inverted': True})
+    def force_inverted_currency(self, service, vals):
+        if service == 'VN_VCB' and 'currency_to_update' in vals:
+            currencies = self.env['res.currency'].browse(
+                vals.get('currency_to_update')[0][2])
+            currencies.filtered(
+                lambda c: c.name != 'VND' or c.rate_inverted is False).write(
+                {'rate_inverted': True}
+            )
