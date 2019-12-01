@@ -23,6 +23,6 @@ class CurrencyRateUpdateService(models.Model):
             currencies = self.env['res.currency'].browse(
                 vals.get('currency_to_update')[0][2])
             currencies.filtered(
-                lambda c: c.name != 'VND' or c.rate_inverted is False).write(
+                lambda c: c.name != 'VND' and c.rate_inverted is False).write(
                 {'rate_inverted': True}
             )
