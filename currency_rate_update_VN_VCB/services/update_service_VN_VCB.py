@@ -68,7 +68,7 @@ class VCBGetter(CurrencyGetterInterface):
                 else:
                     rate = (curr_data['rate_currency'] /
                             main_curr_data['rate_currency'])
-            self.updated_currency[curr] = rate
+            self.updated_currency[curr] = {'inverted': rate}
             _logger.debug(
                 "Rate retrieved : 1 %s = %s %s" % (main_currency, rate, curr))
         return self.updated_currency, self.log_info
