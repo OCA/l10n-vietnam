@@ -64,10 +64,10 @@ class VCBGetter(CurrencyGetterInterface):
             else:
                 curr_data = self.rate_retrieve(dom, vcb_ns, curr)
                 if main_currency == 'VND':
-                    rate = curr_data['rate_currency']
+                    rate = 1 / curr_data['rate_currency']
                 else:
-                    rate = (curr_data['rate_currency'] /
-                            main_curr_data['rate_currency'])
+                    rate = (main_curr_data['rate_currency'] /
+                            curr_data['rate_currency'])
             self.updated_currency[curr] = rate
             _logger.debug(
                 "Rate retrieved : 1 %s = %s %s" % (main_currency, rate, curr))
